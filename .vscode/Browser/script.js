@@ -31,3 +31,6 @@ addBtn.addEventListener("click",function(){
     }
     isModalPresent = !isModalPresent;
 })
+
+//Hovering over toolbox-color-cont which changes its color
+
