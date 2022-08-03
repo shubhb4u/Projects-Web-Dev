@@ -57,7 +57,16 @@ body{
     color: white;
 }
 
-.modal-cont{
+/* Point 1 -  
+This is the class of the test area, 
+and the display is made node here so as to alter its 
+appearance and disappearance from JS file. 
+
+Display:flex - will display it
+Display:none - will remove it */
+
+.modal-cont{ 
+
     height: 50vh;
     background-color: lightblue;
     width: 45vw;
