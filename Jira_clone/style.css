@@ -103,6 +103,8 @@ Display:none - will remove it */
 
  }
 
+ /* These are all for the new div created on pressing shift. */
+
  .ticket-cont{
     height:12rem;
     width:15rem;
@@ -119,7 +121,12 @@ Display:none - will remove it */
  }
 
  .task-area{
-    height: calc(100% - 1rem - 2rem );
+    
+    /* Calc function is used to alculate the remaining height
+    of the last div after subtracting the heights of above 2 divs. 
+
+    (ticket-cont - ticket-color - ticket-id) */
+    height: calc(100% - 1rem - 2rem ); 
     font-size :1.5rem;
     overflow-wrap: break-word;
  }
