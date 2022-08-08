@@ -18,6 +18,17 @@ let modalPriorityColor = colors[colors.length - 1];
 
 const mainCont = document.querySelector(".main-cont");
 
+// Selecting priority colors while creating tickets.
+//  Note we have used queryselectorAll here why ??
+const allPriorityColors = document.querySelectorAll(".priority-color");
+
+
+// Ques. To show only that color tickets whne clicked on top Grid and 
+// show all tickets if one color is double clicked.
+// Selecting child of toolbox container.
+
+const toolBoxColors = document.querySelectorAll(".toolbox-color-cont>*");
+console.log(toolBoxColors);
 
 var isModalPresent = false;
 
@@ -67,7 +78,7 @@ modalCont.addEventListener("keydown", function(e){
 function createTicket(ticketColor, data) {
     
     //generate uid
-    let id =    uid();
+    let id = uid();
 
     // CreateElement is used to create new div/or any other for new ticket
     let ticketCont = document.createElement("div");
@@ -85,5 +96,38 @@ function createTicket(ticketColor, data) {
     mainCont.appendChild(ticketCont);
 }
 
-//Hovering over toolbox-color-cont which changes its color
+// Selecting active colors to create new tickets.
+// using foreach loop to iterate through each color element.
+allPriorityColors.forEach(colorElement => {
+    colorElement.addEventListener("click", function () {
+
+        //First remove previous all active colors selected 
+        //ClassList is a special function that gives all classes on an element.
+        allPriorityColors.forEach(el => {
+            el.classList.remove("active");
+        })
+
+        // Niw select a new priority color to be active.
+        colorElement.classList.add("active");
+
+        //Set the top ribbon of new ticket same as that being selected.
+        modalPriorityColor = colorElement.classList[0];
+    })
+});
+
+
+// The tickets disappear when we refresh the page. We need to save 
+// it in local storage. - https://blog.logrocket.com/localstorage-javascript-complete-guide/
+
+
+
+
+// Ques. To show only that color tickets whne clicked on top Grid and 
+// show all tickets if one color is double clicked.
+for(let i = 0 ; i < toolBoxColors.length; i++){
+    toolBoxColors[i].addEventListener("click", function(){
+
+
+    })
+}
 
