@@ -1,3 +1,6 @@
+//https://shortunique.id/ - Use as browser for random Id's
+var uid = new ShortUniqueId();
+
 // Returns the first element that matches selectors.
 
 //Get the action button where clicked
@@ -63,7 +66,9 @@ modalCont.addEventListener("keydown", function(e){
 
 function createTicket(ticketColor, data) {
     
-  
+    //generate uid
+    let id =    uid();
+
     // CreateElement is used to create new div/or any other for new ticket
     let ticketCont = document.createElement("div");
     ticketCont.setAttribute("class", "ticket-cont");
@@ -78,7 +83,7 @@ function createTicket(ticketColor, data) {
           </div>
       `;
     mainCont.appendChild(ticketCont);
-
+}
 
 //Hovering over toolbox-color-cont which changes its color
 
