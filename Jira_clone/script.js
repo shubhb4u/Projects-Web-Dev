@@ -30,6 +30,9 @@ const allPriorityColors = document.querySelectorAll(".priority-color");
 const toolBoxColors = document.querySelectorAll(".toolbox-color-cont>*");
 console.log(toolBoxColors);
 
+// Created an array to push stored objects
+let ticketsArr = [];
+
 var isModalPresent = false;
 
 //1.--> Kis event pe trigger karna hai ?? - jab addBtn lo "Click" karenge tab
@@ -75,10 +78,10 @@ modalCont.addEventListener("keydown", function(e){
     }
 });
 
-function createTicket(ticketColor, data) {
+function createTicket(ticketColor, data, ticketId) {
     
     //generate uid
-    let id = uid();
+    let id = ticketId || uid();
 
     // CreateElement is used to create new div/or any other for new ticket
     let ticketCont = document.createElement("div");
@@ -94,7 +97,56 @@ function createTicket(ticketColor, data) {
           </div>
       `;
     mainCont.appendChild(ticketCont);
+
+    //if ticket is being generated for the first time save it in local Storage
+    if (!ticketId) {
+      ticketsArr.push({
+
+      ticketId: id,
+      ticketColor,
+      ticketTask: data,
+
+    });
+
+    // Setting Key value pair in local storage of the object being pushed.
+    localStorage.setItem("tickets", JSON.stringify(ticketsArr));
+  }
 }
+
+//getting data from localStorage, for re rendering of tickets
+if (localStorage.getItem("tickets")) {
+    ticketsArr = JSON.parse(localStorage.getItem("tickets"));
+    ticketsArr.forEach(ticketObj => {
+      createTicket(ticketObj.ticketColor, ticketObj.ticketTask, ticketObj.ticketId)
+    })
+  }
+
+
+// Ques. To show only that color tickets whne clicked on top Grid and 
+// show all tickets if one color is double clicked.
+
+//geting tickets on the basis of ticketColor
+for (let i = 0; i < toolBoxColors.length; i++) {
+    toolBoxColors[i].addEventListener("click", function () {
+      let currColor = toolBoxColors[i].classList[0];
+      let filteredTickets = ticketsArr.filter(ticketObj => ticketObj.ticketColor == currColor);
+      console.log(filteredTickets);
+  
+      //remove all tickets
+      let allTickets = document.querySelectorAll(".ticket-cont");
+      allTickets.forEach(ticket => ticket.remove());
+  
+      //display filtered tickets 
+      filteredTickets.forEach(ticket => createTicket(ticket.ticketColor, ticket.ticketTask, ticket.ticketId));
+    })
+  
+  }
+
+
+
+// The tickets disappear when we refresh the page. We need to save 
+// it in local storage. - https://blog.logrocket.com/localstorage-javascript-complete-guide/
+
 
 // Selecting active colors to create new tickets.
 // using foreach loop to iterate through each color element.
@@ -114,20 +166,3 @@ allPriorityColors.forEach(colorElement => {
         modalPriorityColor = colorElement.classList[0];
     })
 });
-
-
-// The tickets disappear when we refresh the page. We need to save 
-// it in local storage. - https://blog.logrocket.com/localstorage-javascript-complete-guide/
-
-
-
-
-// Ques. To show only that color tickets whne clicked on top Grid and 
-// show all tickets if one color is double clicked.
-for(let i = 0 ; i < toolBoxColors.length; i++){
-    toolBoxColors[i].addEventListener("click", function(){
-
-
-    })
-}
-

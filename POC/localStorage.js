@@ -7,8 +7,8 @@ localStorage.setItem("Lives", "Delhi");
 //get Data
 let name1 = localStorage.getItem("name");
 console.log(name1);
-// let name2 = localStorage.name;
-// console.log(name2);
+let name2 = localStorage.name;
+console.log(name2);
 
 //delete 
 // let deletedData = localStorage.removeItem("name");
