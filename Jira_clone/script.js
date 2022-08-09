@@ -198,6 +198,46 @@ removeBtn.addEventListener("click", function () {
   isRemoveBtnActive = !isRemoveBtnActive;
 });
 
+//helps in removing the ticket from frontend and saving in localStorage
+function handleRemoval(ticketCont,id){
+  ticketCont.addEventListener("click", function () {
+    if (!isRemoveBtnActive) return;
+
+    //remove from ticketsArr
+    let idx = getTicketIdx(id);
+    console.log(idx);
+    ticketsArr.splice(idx, 1);
+    console.log(ticketsArr);
+    //set in local storage
+    localStorage.setItem("tickets", JSON.stringify(ticketsArr));
+    //remove from frontend
+    ticketCont.remove();
+  });
+}
+
+// function getTicketIdx(id) {
+  
+//   return ticketsArr.forEach(ticketObj => {
+    
+//     if (ticketObj.ticketId == id) {
+      
+//       let idx = ticketsArr.indexOf(ticketObj);
+//       return idx;
+//     }
+    
+//   })
+  
+// }
+
+
+//retuns the index of ticket present in ticketsArr
+function getTicketIdx(id) { 
+  let idx = ticketsArr.findIndex(ticketObj => {
+    return ticketObj.ticketId==id
+  })
+  return idx;
+}
+
 
 
 
