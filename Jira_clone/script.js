@@ -33,6 +33,10 @@ console.log(toolBoxColors);
 // Created an array to push stored objects
 let ticketsArr = [];
 
+//Task 5. 
+const removeBtn = document.querySelector(".fa-xmark");
+console.log(removeBtn);
+
 var isModalPresent = false;
 
 //1.--> Kis event pe trigger karna hai ?? - jab addBtn lo "Click" karenge tab
@@ -69,7 +73,7 @@ modalCont.addEventListener("keydown", function(e){
 
         //1. Call Create ticket function
         console.log(textArea.value);
-        createTicket(modalPriorityColor, textArea.value);
+        createTicket(modalPriorityColor, textArea.value);// Here id will be undefind and an autonumber will be generated
 
         //2 alter display and update isModalPresent
         modalCont.style.display = "none";
@@ -78,6 +82,9 @@ modalCont.addEventListener("keydown", function(e){
     }
 });
 
+
+// ticketId will be undefined when new ticket is created beacuse from above a are
+// passing only 2 arguments, but it will have value when called from local storage. 
 function createTicket(ticketColor, data, ticketId) {
     
     //generate uid
@@ -96,10 +103,14 @@ function createTicket(ticketColor, data, ticketId) {
               <i class="fa-solid fa-lock"></i>
           </div>
       `;
+    //This new ticket ko show karana hai front end me.
     mainCont.appendChild(ticketCont);
 
-    //if ticket is being generated for the first time save it in local Storage
+    //if ticket is being generated for the first time save it in local Storage,
+    //otherwise duplicate ticket will be created.
     if (!ticketId) {
+
+    //Note these are array of OBJECTS !!!!!!
       ticketsArr.push({
 
       ticketId: id,
@@ -113,9 +124,14 @@ function createTicket(ticketColor, data, ticketId) {
   }
 }
 
-//getting data from localStorage, for re rendering of tickets
+//getting data from localStorage, for re rendering of tickets.
+//Id only we have tickets named key, then move further.
 if (localStorage.getItem("tickets")) {
     ticketsArr = JSON.parse(localStorage.getItem("tickets"));
+
+    //We are calling createFunction to display the tickets 
+    //from local storage to front end using appendChild-
+
     ticketsArr.forEach(ticketObj => {
       createTicket(ticketObj.ticketColor, ticketObj.ticketTask, ticketObj.ticketId)
     })
@@ -127,26 +143,68 @@ if (localStorage.getItem("tickets")) {
 
 //geting tickets on the basis of ticketColor
 for (let i = 0; i < toolBoxColors.length; i++) {
+
     toolBoxColors[i].addEventListener("click", function () {
+
       let currColor = toolBoxColors[i].classList[0];
       let filteredTickets = ticketsArr.filter(ticketObj => ticketObj.ticketColor == currColor);
       console.log(filteredTickets);
   
-      //remove all tickets
+      //remove all tickets, find this class in CSS.
       let allTickets = document.querySelectorAll(".ticket-cont");
       allTickets.forEach(ticket => ticket.remove());
   
       //display filtered tickets 
       filteredTickets.forEach(ticket => createTicket(ticket.ticketColor, ticket.ticketTask, ticket.ticketId));
     })
-  
+
+    //display all the tickets of all priorities on double clicking any priorityColor
+    toolBoxColors[i].addEventListener("dblclick", function () {
+        
+        //remove tickets of specific color from UI
+        let allTickets = document.querySelectorAll(".ticket-cont");
+        allTickets.forEach((ticket) => ticket.remove());
+
+        //display all tickets
+        ticketsArr.forEach(ticket => createTicket(ticket.ticketColor, ticket.ticketTask, ticket.ticketId));
+    })
+
+}
+
+//Task 5 -> Remove button. 
+// 1. Click once - turns the color red
+// 2. Click again - turns it to white.
+
+//toggling the remove btn 
+var isRemoveBtnActive = false;
+removeBtn.addEventListener("click", function () {
+  console.log("in btn");
+  //    case 1 -> if removeBtn is not active
+  //              then make it active i.e. red color
+  if (!isRemoveBtnActive) {
+    // display modal
+    console.log("inside not active");
+    removeBtn.style.color = "red";
   }
 
+  // case 2 -> if removeBtn is active
+  //           then make it inactive i.e. white color
+  else if (isRemoveBtnActive) {
+    // display none
+    console.log("inside active");
+    removeBtn.style.color = "white";
+  }
+
+  isRemoveBtnActive = !isRemoveBtnActive;
+});
 
 
+
+
+
+//Task 3.
 // The tickets disappear when we refresh the page. We need to save 
 // it in local storage. - https://blog.logrocket.com/localstorage-javascript-complete-guide/
-
 
 // Selecting active colors to create new tickets.
 // using foreach loop to iterate through each color element.
