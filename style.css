@@ -18,6 +18,54 @@ video{
     width: 100%;
 }
 
+/* As mentioned, REM is based on the root element (HTML)
+EM on the other hand, is based on the font size of the parent element.
+
+While PX, EM, and REM are primarily used for font sizing, 
+%, VW, and VH are mostly used for margins, padding, spacing, and widths/heights.
+*/
+
+/* POSITION -
+Elements appear one after the other - by default static if nothing is specified
+– directly below one another, according to the order of the HMTL code.
+
+https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative/
+*/
+
 .action-cont{
-    
+
+    height: 10rem;
+    width: 5rem;
+    /* background-color: blue;  // Remove this after use. */
+    /*view height - height of element divided by 2 
+    keeps same distance from top and bottom*/
+    position: absolute;
+    top: calc( (100vh - 12rem ) / 2);
+    left: calc( 100vw - 10rem );
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.action-cont>*{
+    height:5rem;
+    border: 5px solid white ;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-btn{
+    background-color: red;
+    height: 3rem;
+    width:3rem;
+    border-radius: 50%;
+}
+
+.capture-btn{
+    background-color: white;
+    height: 3rem;
+    width:3rem;
+    border-radius: 50%;
 }
