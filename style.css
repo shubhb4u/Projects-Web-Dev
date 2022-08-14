@@ -3,7 +3,7 @@
 }
 
 body{
-    margin: 0;
+    margin:0;
     padding: 0;
 }
 
@@ -68,4 +68,37 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
     height: 3rem;
     width:3rem;
     border-radius: 50%;
+}
+
+.timer-cont{
+    position: absolute;
+    bottom: 5 rem;
+    left: 3rem;
+    background-color: white;
+}
+
+.timer{
+
+    /* Coz we want to display it only when recording button is clicked */
+    display: none; 
+}
+
+.filter-cont{
+    background-color: blue;
+    height: 12rem;
+    width: 5rem;
+    position: absolute;
+    top: calc((100vh - 12rem) / 2);
+    left: 3rem;
+}
+
+.filter{
+
+    /* (Parent height / 4 elements) = 3rem will be height of each filter div */
+    height: 3rem;
+    background-image: url(https://picsum.photos/seed/picsum/200/300);
+
+    /* Setting x and y coordinates to contain the image. */
+    background-size: 100% 100%;
+    background-position: center;
 }
