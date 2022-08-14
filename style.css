@@ -27,14 +27,14 @@ While PX, EM, and REM are primarily used for font sizing,
 
 /* POSITION -
 Elements appear one after the other - by default static if nothing is specified
-– directly below one another, according to the order of the HMTL code.
+– directly below one another, according to the order of the HTML code.
 
 https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative/
 */
 
 .action-cont{
 
-    height: 10rem;
+    height: 12rem;
     width: 5rem;
     /* background-color: blue;  // Remove this after use. */
     /*view height - height of element divided by 2 
@@ -100,5 +100,55 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
 
     /* Setting x and y coordinates to contain the image. */
     background-size: 100% 100%;
-    background-position: center;
+    /* background-position: center; */
+
+    background-blend-mode: color-burn;
+}
+
+/* Set the background color of the filters */
+.brown{
+    background-color: #ffa50052;
+}
+.orange{
+    background-color: #a52a2a59;
+}
+.pink{
+    background-color: #ffc0cb57;
+}
+.transparent{
+    background-color:transparent;
+}
+
+
+.gallery{
+
+    position: absolute;
+    bottom: 5rem;
+    right: 6rem;
+    color: white;
+}
+
+/* Cursor changes to pointer when we hover over the gallery icon */
+.gallery:hover{
+    cursor: pointer;
+}
+
+
+/* Start recording animation of record button */
+.scale-record{
+    animation-name: scale-record;
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+}
+
+@keyframes scale-record{
+    0%{
+        transform: scale(0.8);
+    }
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
