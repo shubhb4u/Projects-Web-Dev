@@ -24,3 +24,5 @@ recordBtnCont.addEventListener("click", function () {
     isRecording = !isRecording;
   
 });
+
+// Browser navigator - https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices
