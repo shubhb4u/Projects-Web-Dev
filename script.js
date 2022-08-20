@@ -65,7 +65,7 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
          a.download="myVideo.mp4"
          a.click();
     
-    });
+    })
 });
 
 
