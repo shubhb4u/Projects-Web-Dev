@@ -77,11 +77,13 @@ recordBtnCont.addEventListener("click", function () {
     if (!isRecording) {
         //we have to record 
         mediaRecorder.start();
+        startTimer();
         recordBtn.classList.add("scale-record");
         timer.style.display = "flex";
     } else {
         //stop the recording 
         mediaRecorder.stop();
+        stopTimer();
         recordBtn.classList.remove("scale-record");
         timer.style.display = "none";
 
@@ -90,3 +92,44 @@ recordBtnCont.addEventListener("click", function () {
     isRecording = !isRecording;
   
 });
+
+// Display timer using set Interval fuction - 
+
+let counter = 0;
+let timerID;
+
+function startTimer(){
+
+    timer.style.display = "block";
+
+    function displayTimer (){
+
+        let totalSeconds = counter;
+
+        // Consider by taking example of 3800 seconds
+        let hours = Number.parseInt(totalSeconds/3600);
+        totalSeconds = totalSeconds % 60;
+        // Remaining seconds  = 200
+
+        let minutes = Number.parseInt(totalSeconds / 60);
+        totalSeconds = totalSeconds % 60;
+
+        let seconds = totalSeconds;
+
+        hours = hours < 10 ? `0${hours}` : hours;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+        timer.innerText = `${hours}:${minutes}:${seconds}`;
+        counter++;
+
+        timerID=setInterval(displayTimer, 1000);	
+    }	
+
+}
+    
+function stopTimer() {	
+        clearInterval(timerID);	
+        timer.innerText = "00:00:00";	
+        timer.style.display = "none";	
+}
