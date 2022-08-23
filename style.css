@@ -45,6 +45,9 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
+    /* To remove the effect of filters from covering the buttons. */
+    z-index: 1;
 }
 
 .action-cont>*{
@@ -71,10 +74,11 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
 }
 
 .timer-cont{
-    position: absolute;
-    bottom: 5 rem;
-    left: 3rem;
-    background-color: white;
+    position: absolute;	
+    bottom:10rem;	
+    left: 3rem;	
+    color: white;	
+    z-index: 1;
 }
 
 .timer{
@@ -84,12 +88,13 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
 }
 
 .filter-cont{
-    background-color: blue;
-    height: 12rem;
-    width: 5rem;
-    position: absolute;
-    top: calc((100vh - 12rem) / 2);
-    left: 3rem;
+    position: absolute;	
+    height: 16rem;	
+    width: 5rem;	
+    top:calc((100vh - 12rem)/2);	
+    left:3rem;	
+    background-color: aquamarine;	
+     z-index: 1;
 }
 
 .filter{
@@ -120,12 +125,26 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
 }
 
 
+.filter-layer{	
+    height: 100vh;	
+    width: 100vw;	
+    /* background-color: #ffa50052; */	
+    position:absolute;	
+    top:0;	
+    left:0;	
+   	
+}	
+/* .material-icons{	
+    color: white;	
+    font-size: 3rem;	
+} */
+
 .gallery{
 
-    position: absolute;
-    bottom: 5rem;
-    right: 6rem;
-    color: white;
+    position: absolute;	
+    bottom: 10rem;	
+    right:5.25rem;	
+     z-index: 1;
 }
 
 /* Cursor changes to pointer when we hover over the gallery icon */
@@ -133,6 +152,20 @@ https://www.freecodecamp.org/news/css-positioning-position-absolute-and-relative
     cursor: pointer;
 }
 
+/*  For capture functionality */
+.scale-capture{	
+    animation-name: scale-capture;	
+    /* animation-iteration-count: 1; */	
+    animation-duration: 1s;	
+}	
+@keyframes scale-capture{	
+    0%{	
+        transform: scale(0.8);	
+    }	
+    100%{	
+        transform: scale(1.1);	
+    }	
+}
 
 /* Start recording animation of record button */
 .scale-record{

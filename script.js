@@ -4,6 +4,7 @@ let captureBtn = document.querySelector(".capture-btn");
 let captureBtnCont = document.querySelector(".capture-btn-cont");
 let timerCont = document.querySelector(".timer-cont");
 let timer = document.querySelector(".timer");
+const video = document.querySelector("video");
 
 
 // Browser navigator - https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices
@@ -79,7 +80,7 @@ recordBtnCont.addEventListener("click", function () {
         mediaRecorder.start();
         startTimer();
         recordBtn.classList.add("scale-record");
-        timer.style.display = "flex";
+        timer.style.display = "block";
     } else {
         //stop the recording 
         mediaRecorder.stop();
@@ -133,3 +134,42 @@ function stopTimer() {
         timer.innerText = "00:00:00";	
         timer.style.display = "none";	
 }
+
+
+// For capture event -
+
+captureBtnCont.addEventListener("click", function(){
+    captureBtn.classList.add("scale-capture");
+    //canvas 
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = filterColor;	
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let image = canvas.toDataURL("image/jpeg");
+
+     let a = document.createElement("a");
+     a.href = image;
+     a.download = "myPic.jpeg";
+     a.click();
+
+    setTimeout(() => {
+        captureBtn.classList.remove("scale-capture")
+    },1000)
+})
+
+let allFilters = document.querySelectorAll(".filter");	
+let filterLayer = document.querySelector(".filter-layer");	
+allFilters.forEach((filterEle) => {	
+    filterEle.addEventListener("click", () => {	
+        filterColor = window.getComputedStyle(filterEle).getPropertyValue('background-color');	
+        filterLayer.style.backgroundColor = filterColor;	
+    });	
+});	
+gallery.addEventListener("click", () => {	
+  location.assign("./gallery.html");	
+});
