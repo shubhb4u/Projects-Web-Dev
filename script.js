@@ -1,10 +1,13 @@
-let recordBtn = document.querySelector(".record-btn");
-let recordBtnCont = document.querySelector(".record-btn-cont");
-let captureBtn = document.querySelector(".capture-btn");
-let captureBtnCont = document.querySelector(".capture-btn-cont");
-let timerCont = document.querySelector(".timer-cont");
-let timer = document.querySelector(".timer");
+var uid = new ShortUniqueId();
+const recordBtn = document.querySelector(".record-btn");
+const recordBtnCont = document.querySelector(".record-btn-cont");
+const captureBtn = document.querySelector(".capture-btn");
+const captureBtnCont = document.querySelector(".capture-btn-cont");
+const timerCont = document.querySelector(".timer-cont");
+const timer = document.querySelector(".timer");
 const video = document.querySelector("video");
+let filterColor = "transparent";
+const gallery = document.querySelector(".gallery");
 
 
 // Browser navigator - https://developer.mozilla.org/en-US/docs/Web/API/Navigator/mediaDevices
@@ -55,19 +58,25 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 
     //will be called from below stop function at line 74. to indicate stop event
     mediaRecorder.addEventListener("stop", () => {
-        console.log("rec stopped");
-        //Stitch all the elements in chunk to form a blob.
         let blob = new Blob(chunks, { type: "video/mp4" });
         let videoURL = URL.createObjectURL(blob);
-        console.log(videoURL);
+      
+        if (db) {
+            let videoID = uid();
+            let dbTransaction=db.transaction("video", "readwrite");
+            let videoStore = dbTransaction.objectStore("video");
+            let videoEntry = {
+              id: videoID,
+              blobData: blob,
+            };
+            let addRequest = videoStore.add(videoEntry); 
+            addRequest.onsuccess = function () {
+              console.log("Videoentry added to videoStore");
+            };
 
-         let a = document.createElement("a");
-         a.href = videoURL;
-         a.download="myVideo.mp4"
-         a.click();
-    
-    })
-});
+        }
+    });
+})
 
 
 /*Case 1 --> Start recording animation of record button */
@@ -150,12 +159,20 @@ captureBtnCont.addEventListener("click", function(){
     ctx.fillStyle = filterColor;	
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    let image = canvas.toDataURL("image/jpeg");
-
-     let a = document.createElement("a");
-     a.href = image;
-     a.download = "myPic.jpeg";
-     a.click();
+    let imageURL = canvas.toDataURL("image/jpeg");
+    if (db) {
+      let imageID = uid();
+      let dbTransaction=db.transaction("image", "readwrite");
+      let imageStore = dbTransaction.objectStore("image");
+      let imageEntry = {
+        id: `img-${imageID}`,
+        url: imageURL,
+      };
+      let addRequest = imageStore.add(imageEntry);
+      addRequest.onsuccess = function () {
+          console.log("Image added");
+      };
+    }
 
     setTimeout(() => {
         captureBtn.classList.remove("scale-capture")
