@@ -183,7 +183,7 @@ let allFilters = document.querySelectorAll(".filter");
 let filterLayer = document.querySelector(".filter-layer");	
 allFilters.forEach((filterEle) => {	
     filterEle.addEventListener("click", () => {	
-        let filterColor = window.getComputedStyle(filterEle).getPropertyValue('background-color');	
+        filterColor = window.getComputedStyle(filterEle).getPropertyValue('background-color');	
         filterLayer.style.backgroundColor = filterColor;	
     });	
 });	
