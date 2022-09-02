@@ -37,7 +37,8 @@ h1{
 .gallery-cont{
     height: 100vh;
     width: 100vw;
-   background-color: lightcyan;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 
@@ -53,4 +54,26 @@ h1{
     height: calc( 100% - 2rem - 2rem );
     width: 100%;
     background-color: rgb(129, 139, 16);
+}
+
+.media>*{
+    height: 100%;
+    width: 100%;
+    
+}
+.action-btn{
+    height: 2rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.action-btn:hover{
+    cursor: pointer;
+}
+.download{
+    background-color: black;
+}
+.delete{
+    background-color: red;
 }
