@@ -48,7 +48,7 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
 
     //will be called from below start function at line 74. to indicate start event
     mediaRecorder.addEventListener("start", () => {
-        console.log("rec started");
+        chunks = [];
     });
     mediaRecorder.addEventListener("dataavailable", (e) => {
         chunks.push(e.data); 
@@ -59,7 +59,7 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
     //will be called from below stop function at line 74. to indicate stop event
     mediaRecorder.addEventListener("stop", () => {
         let blob = new Blob(chunks, { type: "video/mp4" });
-        let videoURL = URL.createObjectURL(blob);
+        // let videoURL = URL.createObjectURL(blob);
       
         if (db) {
             let videoID = uid();
@@ -71,7 +71,7 @@ navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
             };
             let addRequest = videoStore.add(videoEntry); 
             addRequest.onsuccess = function () {
-              console.log("Videoentry added to videoStore");
+            //   console.log("Videoentry added to videoStore");
             };
 
         }
@@ -118,7 +118,7 @@ function startTimer(){
 
         // Consider by taking example of 3800 seconds
         let hours = Number.parseInt(totalSeconds/3600);
-        totalSeconds = totalSeconds % 60;
+        totalSeconds = totalSeconds % 3600;
         // Remaining seconds  = 200
 
         let minutes = Number.parseInt(totalSeconds / 60);
@@ -170,7 +170,7 @@ captureBtnCont.addEventListener("click", function(){
       };
       let addRequest = imageStore.add(imageEntry);
       addRequest.onsuccess = function () {
-          console.log("Image added");
+        //   console.log("Image added");
       };
     }
 
@@ -190,3 +190,5 @@ allFilters.forEach((filterEle) => {
 gallery.addEventListener("click", () => {	
   location.assign("./gallery.html");	
 });
+
+Footer
