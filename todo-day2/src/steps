@@ -1,0 +1,12 @@
+1. create HTMl interface
+2. Apply CSS
+3. import useState
+4. use OnSubmit on the form to store the imput values when Go button is clicked.
+5. create a fucnstion handleSubmit to act on the above case.
+6. add onChnage on the imput tab to take input which will save the value 
+    using single useState case.
+
+    onChange = {(e) => setTodo(e.target.value)} --> will set the value in the input box 
+    to todo using setTodo function
+
+7. In handdelete function filter all the todos which is not equal to the id being passed.
