@@ -1,0 +1,26 @@
+.downloadMessage{
+    display: flex;
+    height: 40px;
+    background-color: rgb(232, 94, 44);
+    color: white;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    align-items: center;
+    margin-top: 2rem;
+    box-shadow: 1px 2px 8px rgb(118, 114, 112);
+}
+
+.downloadText{
+    flex: 0.9;
+    font-size: 15px;
+}
+
+.downloadMessage > img{
+    padding-left: 1rem;
+    height: 40px;
+}
+
+@media (max-width: 900px){
+    .downloadMessage{
+        display: none;
+    }
+}
