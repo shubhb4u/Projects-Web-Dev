@@ -1,8 +1,9 @@
 import { Container } from '@mui/system'
 import React from 'react';
+import NewsCard from '../NewsCard/NewsCard';
 import './NewsContent.css';
 
-const NewsContent = () => {
+const NewsContent = ({loadMore, newsArray, newsResults, setLoadMore}) => {
   return (
     <Container maxWidth="md">
       <div className="content">
@@ -15,8 +16,29 @@ const NewsContent = () => {
            alt="app store"
            height="80%"/>
         </div>
+
+        {
+          newsArray.map((newsItem) => (
+
+            <NewsCard newsItem={newsItem} key={newsItem.title}/>
+          ))
+        }
+
+        {loadMore<=newsResults && (
+
+          <>
+            <button className="loadMore"
+            onClick={()=>setLoadMore(loadMore+20)}
+            >
+              Load more
+            </button>
+
+          </>
+
+        )}
         
       </div>
+
     </Container>
   )
 }

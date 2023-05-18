@@ -19,7 +19,6 @@ import categories from '../data/category';
 export default function TemporaryDrawer({setCategory}) {
   const [state, setState] = React.useState({
     left: false,
-   
   });
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');

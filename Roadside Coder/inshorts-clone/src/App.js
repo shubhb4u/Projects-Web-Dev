@@ -11,11 +11,14 @@ function App() {
   const [category, setCategory] = useState("general");
   const [newsArray, setNewsArray] = useState([]);
   const [newsResults, setNewsResults] = useState();
+  const [loadMore, setLoadMore] = useState(20);
 
   const newsApi = async() => {
 
     try {
-      const news = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apikey}&category=${category}`);
+
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+      const news = await axios.get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apikey}&pageSize=${loadMore}&category=${category}`);
       console.log(news.data);
       setNewsArray(news.data.articles);
       setNewsResults(news.data.totalResults);
@@ -28,7 +31,7 @@ function App() {
 
   useEffect(() => {
     newsApi()
-  }, [newsResults, category]);
+  }, [newsResults, category, loadMore]);
 
   console.log(newsArray);
   
@@ -36,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <NavInshorts setCategory={setCategory}/>
-      <NewsContent/>
+      <NewsContent loadMore={loadMore} setLoadMore={setLoadMore} newsArray={newsArray} newsResults={newsResults}/>
       <Footer/>
     </div>
   );
